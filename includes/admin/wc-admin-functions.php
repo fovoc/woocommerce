@@ -54,7 +54,7 @@ function wc_create_page( $slug, $option = '', $page_title = '', $page_content = 
     $option_value = get_option( $option );
 
     if ( $option_value > 0 && get_post( $option_value ) )
-        return;
+        return -1;
 
     $page_found = null;
 
@@ -69,7 +69,8 @@ function wc_create_page( $slug, $option = '', $page_title = '', $page_content = 
     if ( $page_found ) {
         if ( ! $option_value )
             update_option( $option, $page_found );
-        return;
+		
+		return $page_found;
     }
 
     $page_data = array(

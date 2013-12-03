@@ -548,6 +548,8 @@ class WC_Cart {
 
 				return ob_get_clean();
 			}
+
+			return '';
 		}
 
 		/**
@@ -579,6 +581,8 @@ class WC_Cart {
 			$cart_page_id = wc_get_page_id('cart');
 			if ( $cart_page_id )
 				return apply_filters( 'woocommerce_get_cart_url', get_permalink( $cart_page_id ) );
+
+			return '';
 		}
 
 		/**
@@ -697,11 +701,13 @@ class WC_Cart {
 	     */
 	    public function find_product_in_cart( $cart_id = false ) {
 	        if ( $cart_id !== false )
-	        	if( is_array( $this->cart_contents ) )
+	        	if ( is_array( $this->cart_contents ) )
 	        		foreach ( $this->cart_contents as $cart_item_key => $cart_item )
 	        			if ( $cart_item_key == $cart_id )
 	        				return $cart_item_key;
-	    }
+
+			return '';
+		}
 
 		/**
 	     * Generate a unique ID for the cart item being added.
@@ -712,13 +718,13 @@ class WC_Cart {
 	     * @param array $cart_item_data other cart item data passed which affects this items uniqueness in the cart
 	     * @return string cart item key
 	     */
-	    public function generate_cart_id( $product_id, $variation_id = '', $variation = '', $cart_item_data = array() ) {
+	    public function generate_cart_id( $product_id, $variation_id = 0, $variation = array(), $cart_item_data = array() ) {
 	        $id_parts = array( $product_id );
 
-	        if ( $variation_id )
+	        if ( $variation_id && 0 != $variation_id )
 	        	$id_parts[] = $variation_id;
 
-	        if ( is_array( $variation ) ) {
+	        if ( is_array( $variation ) && ! empty( $variation ) ) {
 	            $variation_key = '';
 	            foreach ( $variation as $key => $value ) {
 	                $variation_key .= trim( $key ) . trim( $value );
@@ -1348,7 +1354,7 @@ class WC_Cart {
 		/**
 		 * Gets the shipping total (after calculation).
 		 *
-		 * @return mixed price or string for the shipping total
+		 * @return string price or string for the shipping total
 		 */
 		public function get_cart_shipping_total() {
 			if ( isset( $this->shipping_total ) ) {
@@ -1381,6 +1387,8 @@ class WC_Cart {
 					return __( 'Free!', 'woocommerce' );
 				}
 			}
+
+			return '';
 		}
 
     /*-----------------------------------------------------------------------------------*/

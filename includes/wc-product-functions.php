@@ -305,8 +305,6 @@ function wc_placeholder_img( $size = 'shop_thumbnail' ) {
  * @return string
  */
 function wc_get_formatted_variation( $variation = '', $flat = false ) {
-	global $woocommerce;
-
 	if ( is_array( $variation ) ) {
 
 		if ( ! $flat )
@@ -344,6 +342,8 @@ function wc_get_formatted_variation( $variation = '', $flat = false ) {
 
 		return $return;
 	}
+	
+	return '';
 }
 
 /**
@@ -353,7 +353,7 @@ function wc_get_formatted_variation( $variation = '', $flat = false ) {
  * @return void
  */
 function wc_scheduled_sales() {
-	global $woocommerce, $wpdb;
+	global $wpdb;
 
 	// Sales which are due to start
 	$product_ids = $wpdb->get_col( $wpdb->prepare( "
@@ -446,8 +446,8 @@ add_action( 'woocommerce_scheduled_sales', 'wc_scheduled_sales' );
  * wc_get_attachment_image_attributes function.
  *
  * @access public
- * @param mixed $attr
- * @return void
+ * @param array $attr
+ * @return array
  */
 function wc_get_attachment_image_attributes( $attr ) {
 	if ( strstr( $attr['src'], 'woocommerce_uploads/' ) )
@@ -462,8 +462,8 @@ add_filter( 'wp_get_attachment_image_attributes', 'wc_get_attachment_image_attri
  * wc_prepare_attachment_for_js function.
  *
  * @access public
- * @param mixed $response
- * @return void
+ * @param array $response
+ * @return array
  */
 function wc_prepare_attachment_for_js( $response ) {
 

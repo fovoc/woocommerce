@@ -53,7 +53,7 @@ class WC_Admin_Duplicate_Product {
 		global $post;
 
 		if ( ! current_user_can( apply_filters( 'woocommerce_duplicate_product_capability', 'manage_woocommerce' ) ) )
-			return $actions;
+			return;
 
 		if ( ! is_object( $post ) )
 			return;

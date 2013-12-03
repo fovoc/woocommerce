@@ -775,7 +775,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 	    	$order = $this->get_paypal_order( $posted['cm'] );
 
 	    	if ( $order->status != 'pending' )
-	    		return;
+				return false;
 
 	    	$posted['st'] = strtolower( $posted['st'] );
 
@@ -817,6 +817,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 
 				    	// Put this order on-hold for manual checking
 				    	$order->update_status( 'on-hold', sprintf( __( 'Validation error: PayPal amounts do not match (amt %s).', 'woocommerce' ), $posted['amt'] ) );
+				    	return true;
 
 				    } else {
 
@@ -825,13 +826,15 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 
 						$order->add_order_note( __( 'PDT payment completed', 'woocommerce' ) );
 		                $order->payment_complete();
-
+		                return true;
 		            }
 
 	            break;
 	        }
         }
-    }
+
+		return false;
+	}
 
 	/**
 	 * get_paypal_order function.

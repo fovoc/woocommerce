@@ -61,13 +61,13 @@ function wc_get_endpoint_url( $endpoint, $value = '', $permalink = '' ) {
  * Returns the url to the lost password endpoint url
  *
  * @access public
- * @param mixed $url
- * @return void
+ * @param string $url
+ * @return string
  */
-function wc_lostpassword_url( $url ) {
+function wc_lostpassword_url() {
     return wc_get_endpoint_url( 'lost-password', '', get_permalink( wc_get_page_id( 'myaccount' ) ) );
 }
-add_filter( 'lostpassword_url',  'wc_lostpassword_url' );
+add_filter( 'lostpassword_url',  'wc_lostpassword_url', 10, 0 );
 
 
 /**

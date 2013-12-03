@@ -77,7 +77,7 @@ class WC_Product_Variation extends WC_Product {
 
 		// The post doesn't have a parent id, therefore its invalid.
 		if ( empty( $this->id ) )
-			return false;
+			return;
 
 		// Get post data
 		$this->parent = ! empty( $args['parent'] ) ? $args['parent'] : get_product( $this->id );

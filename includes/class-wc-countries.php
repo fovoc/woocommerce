@@ -544,11 +544,11 @@ class WC_Countries {
 	 * Get the states for a country.
 	 *
 	 * @access public
-	 * @param mixed $cc country code
+	 * @param string $cc country code
 	 * @return array of states
 	 */
 	public function get_states( $cc ) {
-		if (isset( $this->states[$cc] )) return $this->states[$cc];
+		return ( isset( $this->states[ $cc ] ) ) ? $this->states[ $cc ] : array();
 	}
 
 
@@ -771,6 +771,24 @@ class WC_Countries {
 		);
 
 		return apply_filters( 'woocommerce_default_address_fields', $fields );
+	}
+
+	/**
+	 * Get JS selectors for fields which are shown/hidden depending on the locale.
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function get_country_locale_field_selectors() {
+		$locale_fields = array (
+			'address_1'	=> '#billing_address_1_field, #shipping_address_1_field',
+			'address_2'	=> '#billing_address_2_field, #shipping_address_2_field',
+			'state'		=> '#billing_state_field, #shipping_state_field',
+			'postcode'	=> '#billing_postcode_field, #shipping_postcode_field',
+			'city'		=> '#billing_city_field, #shipping_city_field'
+		);
+		
+		return apply_filters( 'woocommerce_country_locale_field_selectors', $locale_fields );
 	}
 
 	/**
